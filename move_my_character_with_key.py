@@ -17,6 +17,7 @@ speed = 0.05
 def handle_events():
     global running
     global x, y, horizontal, vertical
+    global window_width, window_height
 
     events = get_events()
 
@@ -36,13 +37,24 @@ def handle_events():
                 vertical -= 1
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_RIGHT:
-                horizontal -= 1
+                horizontal = 0
             elif event.key == SDLK_LEFT:
-                horizontal += 1
+                horizontal = 0
             elif event.key == SDLK_UP:
-                vertical -= 1
+                vertical = 0
             elif event.key == SDLK_DOWN:
-                vertical += 1
+                vertical = 0
+
+def character_bound():
+    global x, y
+    if x < 30:
+        x = 30
+    elif x > window_width-30:
+        x = window_width-30
+    if y < 40:
+        y = 40
+    elif y > window_height-40:
+        y = window_height-40
 
 ch_width = 29
 ch_height = 40
@@ -53,6 +65,7 @@ while running:
 
     clear_canvas()
     ground.draw(window_width / 2, window_height / 2)
+    character_bound()
     character.clip_draw(86 + 32 * frame, 447, ch_width, ch_height, x, y, ch_width / 29 * 60, ch_height / 40 * 80)
 
     handle_events()
