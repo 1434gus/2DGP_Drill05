@@ -9,7 +9,7 @@ ground = load_image('TUK_GROUND.png')
 character = load_image('sonic-sprite.png')
 frame = 0
 x = 0
-speed = 0.05
+speed = 0.1
 
 def handle_events():
     global running
@@ -28,14 +28,30 @@ def handle_events():
             elif event.key == SDLK_LEFT:
                 x -= 10
 
+# def stand():
+#     ch_width = 29
+#     ch_height = 40
+#     global x
+#     for i in range(0, 4):
+#         clear_canvas()
+#         ground.draw(window_width / 2, window_height / 2)
+#         character.clip_draw(86+ 32*i, 447, ch_width, ch_height, 400 + x, 300, ch_width / 29 * 300, ch_height / 40 * 400)
+
+
+ch_width = 29
+ch_height = 40
 
 while running:
     clear_canvas()
     ground.draw(window_width/2,window_height/2)
-    character.clip_draw(0,0,30,50,x,90)
-    handle_events()
-    update_canvas()
-    delay(speed)
+    # character.clip_draw(0,0,30,50,x,90)
+    for i in range(0, 4):
+        clear_canvas()
+        ground.draw(window_width / 2, window_height / 2)
+        character.clip_draw(86 + 32 * i, 447, ch_width, ch_height, 400 + x, 300, ch_width / 29 * 300, ch_height / 40 * 400)
+        handle_events()
+        update_canvas()
+        delay(speed)
 
 
 
